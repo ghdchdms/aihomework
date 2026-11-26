@@ -79,9 +79,15 @@ def get_secret(name, default=""):
     except Exception:
         return default
 
-FIREBASE_URL = get_secret("FIREBASE_URL", "").rstrip("/")
-ADMIN_PASSWORD = get_secret("ADMIN_PASSWORD", "")
-GUEST_PASSWORD = get_secret("GUEST_PASSWORD", "")
+# 요청하신 기존 관리자 비밀번호와 Firebase 주소를 유지하고,
+# 게스트 비밀번호만 pnumis로 변경했습니다.
+# 운영 배포에서는 아래 값을 Streamlit Secrets에 등록하는 방식을 권장합니다.
+FIREBASE_URL = get_secret(
+    "FIREBASE_URL",
+    "https://sleepground-fan-web-default-rtdb.asia-southeast1.firebasedatabase.app",
+).rstrip("/")
+ADMIN_PASSWORD = get_secret("ADMIN_PASSWORD", "sleepground")
+GUEST_PASSWORD = get_secret("GUEST_PASSWORD", "pnumis")
 
 def firebase_get():
     if not FIREBASE_URL:
